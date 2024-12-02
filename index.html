@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>纪念我们的第 <span id="days"></span> 天</title>
+  <title>纪念我们的第 天 时 分 秒</title>
   <style>
     body {
       margin: 0;
@@ -44,11 +44,6 @@
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       animation: fadeIn 3s ease-in-out;
     }
-    .music {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -59,49 +54,56 @@
         transform: translateY(0);
       }
     }
-    .heart {
-      position: absolute;
-      bottom: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2em;
-      animation: heartbeat 1.5s infinite;
-    }
-    @keyframes heartbeat {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.2);
-      }
-    }
   </style>
 </head>
 <body>
-  <h1>纪念我们的第 <span class="highlight" id="days"></span> 天</h1>
-  <p>从 2021 年 10 月 24 日起，我们一起走过了 <span class="highlight" id="days"></span> 天。</p>
-  <div class="heart">❤️</div>
-  <footer>愿我们的每一天都充满爱与快乐 ❤️</footer>
+  <h1>纪念我们的第</h1>
+  <p>
+    从 2021 年 10 月 24 日起，我们一起走过了 
+    <span class="highlight" id="days">0</span> 天 
+    <span class="highlight" id="hours">0</span> 时 
+    <span class="highlight" id="minutes">0</span> 分 
+    <span class="highlight" id="seconds">0</span> 秒
+  </p>
+  <footer>❤️ 永远爱你 ❤️</footer>
 
   <!-- 背景音乐 -->
-  <audio class="music" controls autoplay loop>
-    <source src="your-music-file.mp3" type="audio/mpeg">
-    您的浏览器不支持音频播放。
-  </audio>
+  <audio id="backgroundMusic" src="your-music-file.mp3" type="audio/mpeg" loop></audio>
 
   <script>
-    // 设置起始日期
-    const startDate = new Date('2021-10-24');
+    // 设置起始时间
+    const startDate = new Date('2021-10-24T00:00:00');
 
-    // 获取今天日期
-    const today = new Date();
+    // 更新计时器函数
+    function updateTimer() {
+      const now = new Date();
+      const elapsedTime = now - startDate;
 
-    // 计算天数差
-    const timeDifference = today - startDate;
-    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      // 计算天、时、分、秒
+      const days = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
 
-    // 动态更新页面
-    document.getElementById('days').textContent = daysDifference;
+      // 更新页面内容
+      document.getElementById('days').textContent = days;
+      document.getElementById('hours').textContent = hours;
+      document.getElementById('minutes').textContent = minutes;
+      document.getElementById('seconds').textContent = seconds;
+    }
+
+    // 定时器每秒更新
+    setInterval(updateTimer, 1000);
+
+    // 自动播放背景音乐
+    const music = document.getElementById('backgroundMusic');
+    function playMusic() {
+      music.play().catch(() => {
+        console.log("自动播放可能被限制，等待用户交互。");
+      });
+    }
+    document.addEventListener('DOMContentLoaded', playMusic);
+    document.body.addEventListener('click', playMusic);
   </script>
 </body>
 </html>
