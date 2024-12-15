@@ -20,13 +20,13 @@
       height: 100vh;
       overflow: hidden;
     }
-    h1 {
+    .timer {
       font-size: 4em;
       margin-bottom: 20px;
       text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
       animation: fadeIn 2s ease-in-out;
     }
-    p {
+    .message {
       font-size: 1.8em;
       margin-top: 10px;
       text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.5);
@@ -36,7 +36,7 @@
       color: #ffdd94;
       font-weight: bold;
     }
-    footer {
+    .footer {
       position: absolute;
       bottom: 20px;
       font-size: 1em;
@@ -57,15 +57,15 @@
   </style>
 </head>
 <body>
-  <h1>纪念我们的第</h1>
-  <p>
-    从 2021 年 10 月 24 日起，我们一起走过了 
+  <h1 class="timer">纪念我们的第</h1>
+  <p class="message">
+    从 <time datetime="2021-10-24">2021 年 10 月 24 日</time> 起，我们一起走过了 
     <span class="highlight" id="days">0</span> 天 
     <span class="highlight" id="hours">0</span> 时 
     <span class="highlight" id="minutes">0</span> 分 
     <span class="highlight" id="seconds">0</span> 秒
   </p>
-  <footer>❤️ 永远爱你 ❤️</footer>
+  <p class="footer">❤️ 永远爱你 ❤️</p>
 
   <!-- 背景音乐 -->
   <audio id="backgroundMusic" src="your-music-file.mp3" type="audio/mpeg" loop></audio>
@@ -90,10 +90,12 @@
       document.getElementById('hours').textContent = hours;
       document.getElementById('minutes').textContent = minutes;
       document.getElementById('seconds').textContent = seconds;
+
+      requestAnimationFrame(updateTimer);
     }
 
-    // 定时器每秒更新
-    setInterval(updateTimer, 1000);
+    // 初始调用计时器
+    updateTimer();
 
     // 自动播放背景音乐
     const music = document.getElementById('backgroundMusic');
@@ -103,7 +105,6 @@
       });
     }
     document.addEventListener('DOMContentLoaded', playMusic);
-    document.body.addEventListener('click', playMusic);
   </script>
 </body>
 </html>
