@@ -44,16 +44,6 @@
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       animation: fadeIn 3s ease-in-out;
     }
-    .play-button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #ffdd94;
-      border: none;
-      border-radius: 5px;
-      font-size: 1.2em;
-      cursor: pointer;
-      color: #333;
-    }
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -79,9 +69,6 @@
 
   <!-- 背景音乐 -->
   <audio id="backgroundMusic" src="your-music-file.mp3" type="audio/mpeg" loop></audio>
-
-  <!-- 播放按钮 -->
-  <button id="playButton" class="play-button">点击播放音乐</button>
 
   <script>
     // 设置起始时间
@@ -118,8 +105,8 @@
       });
     }
 
-    // 为播放按钮添加点击事件监听器
-    document.getElementById('playButton').addEventListener('click', playMusic);
+    // 等待用户点击页面来触发音乐播放
+    document.body.addEventListener('click', playMusic);
   </script>
 </body>
 </html>
