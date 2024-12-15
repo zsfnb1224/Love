@@ -19,7 +19,7 @@
       align-items: center;
       height: 100vh;
       overflow: hidden;
-      position: relative;
+      background-blur: 10px;
     }
     .timer {
       font-size: 4em;
@@ -50,36 +50,7 @@
       margin-top: 20px;
       font-style: italic;
       color: rgba(255, 255, 255, 0.7);
-      animation: fadeIn 3s ease-in-out;
     }
-
-    /* 隐私蒙版样式 */
-    .date-mask {
-      display: inline-block;
-      background-color: rgba(0, 0, 0, 0.6);
-      color: transparent;
-      padding: 0 5px;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-      transition: all 0.5s ease-out; /* 平滑过渡 */
-    }
-    .date-mask:hover {
-      background-color: rgba(0, 0, 0, 0.8); /* 增强悬停效果 */
-      transform: scale(1.1); /* 点击时轻微放大 */
-    }
-
-    /* 日期显示效果 */
-    .date-revealed {
-      color: white;
-      transition: all 0.4s ease-in-out; /* 日期显示的过渡效果 */
-      background-color: rgba(0, 0, 0, 0.3);
-      padding: 5px 10px;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* 增加阴影效果 */
-    }
-
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -94,7 +65,7 @@
 </head>
 <body>
   <p class="message">
-    从 <span class="date-mask" id="dateMask">点击显示日期</span> 起，我们一起走过了 
+    从 <time datetime="2021-10-24">2021 年 10 月 24 日</time> 起，我们一起走过了 
     <span class="highlight" id="days">0</span> 天 
     <span class="highlight" id="hours">0</span> 时 
     <span class="highlight" id="minutes">0</span> 分 
@@ -144,17 +115,11 @@
       });
     }
 
-    // 自动播放音乐 (浏览器限制可能需要用户交互)
+    // 尝试自动播放音乐
     playMusic();
 
     // 如果自动播放被阻止，监听用户点击页面来播放音乐
     document.body.addEventListener('click', playMusic);
-
-    // 显示日期
-    document.getElementById('dateMask').addEventListener('click', function() {
-      this.textContent = "2021 年 10 月 24 日";
-      this.classList.add('date-revealed');  // 显示日期并添加样式
-    });
   </script>
 </body>
 </html>
