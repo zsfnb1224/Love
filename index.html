@@ -52,7 +52,27 @@
       color: rgba(255, 255, 255, 0.7);
       animation: fadeIn 3s ease-in-out;
     }
-    
+
+    /* 隐私蒙版样式 */
+    .date-mask {
+      display: inline-block;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: transparent;
+      padding: 0 5px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+    .date-mask:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .date-revealed {
+      color: white;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -67,7 +87,7 @@
 </head>
 <body>
   <p class="message">
-    从 <time datetime="2021-10-24">2021 年 10 月 24 日</time> 起，我们一起走过了 
+    从 <span class="date-mask" id="dateMask">点击显示日期</span> 起，我们一起走过了 
     <span class="highlight" id="days">0</span> 天 
     <span class="highlight" id="hours">0</span> 时 
     <span class="highlight" id="minutes">0</span> 分 
@@ -122,6 +142,12 @@
 
     // 如果自动播放被阻止，监听用户点击页面来播放音乐
     document.body.addEventListener('click', playMusic);
+
+    // 显示日期
+    document.getElementById('dateMask').addEventListener('click', function() {
+      this.textContent = "2021 年 10 月 24 日";
+      this.classList.add('date-revealed');  // 显示日期并添加样式
+    });
   </script>
 </body>
 </html>
