@@ -63,14 +63,21 @@
       cursor: pointer;
       border-radius: 5px;
       text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-      transition: all 0.3s ease;
+      transition: all 0.5s ease-out; /* 平滑过渡 */
     }
     .date-mask:hover {
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.8); /* 增强悬停效果 */
+      transform: scale(1.1); /* 点击时轻微放大 */
     }
 
+    /* 日期显示效果 */
     .date-revealed {
       color: white;
+      transition: all 0.4s ease-in-out; /* 日期显示的过渡效果 */
+      background-color: rgba(0, 0, 0, 0.3);
+      padding: 5px 10px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5); /* 增加阴影效果 */
     }
 
     @keyframes fadeIn {
