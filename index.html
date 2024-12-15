@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>纪念我们的时光</title>
+  <title>我们的纪念时光</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Dancing Script', cursive;
-      background: url('https://source.unsplash.com/1920x1080/?love,romantic') no-repeat center center fixed;
+      background: url('https://source.unsplash.com/1920x1080/?romantic,couple') no-repeat center center fixed;
       background-size: cover;
       color: white;
       text-align: center;
@@ -19,6 +19,7 @@
       align-items: center;
       height: 100vh;
       overflow: hidden;
+      background-blur: 10px;
     }
     .timer {
       font-size: 4em;
@@ -39,10 +40,16 @@
     .footer {
       position: absolute;
       bottom: 20px;
-      font-size: 1em;
+      font-size: 1.2em;
       color: rgba(255, 255, 255, 0.8);
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       animation: fadeIn 3s ease-in-out;
+    }
+    .quote {
+      font-size: 1.5em;
+      margin-top: 20px;
+      font-style: italic;
+      color: rgba(255, 255, 255, 0.7);
     }
     @keyframes fadeIn {
       from {
@@ -64,6 +71,10 @@
     <span class="highlight" id="minutes">0</span> 分 
     <span class="highlight" id="seconds">0</span> 秒
   </p>
+
+  <!-- 爱情名言 -->
+  <p class="quote">"爱是永恒的，时光不会改变我们的心"</p>
+
   <p class="footer">❤️ 永远爱你 ❤️</p>
 
   <!-- 背景音乐 -->
