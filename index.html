@@ -104,7 +104,10 @@
       });
     }
 
-    // 等待用户点击页面来触发音乐播放
+    // 尝试自动播放音乐
+    playMusic();
+
+    // 如果自动播放被阻止，监听用户点击页面来播放音乐
     document.body.addEventListener('click', playMusic);
   </script>
 </body>
