@@ -2,46 +2,47 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>❤️Love Me Qian❤️</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-  <style>
+  <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/mouse_slide.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/clicklove.js"></script>
+  <style type="text/css">
     html, body {
       height: 100%;
       padding: 0;
       margin: 0;
-      font-family: 'Dancing Script', cursive;
       background: #000;
-      overflow: hidden;
     }
-
+    canvas {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
     body {
-      background: linear-gradient(to bottom, #ff7e5f, #feb47b); /* 暖色渐变背景 */
+      font-family: 'Dancing Script', cursive;
       color: white;
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .container {
-      display: none; /* 默认隐藏页面内容 */
-      text-align: center;
       position: relative;
-      z-index: 1;
+      z-index: 10;
     }
-
-    .timer {
-      font-size: 4em;
-      margin-bottom: 20px;
-      text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.6);
-      animation: fadeIn 2s ease-in-out;
+    .namebox {
+      color: #fff;
+      position: absolute;   
+      top: 50%;   
+      left: 50%;   
+      transform: translate(-50%, -50%);   
+      display: none; /* 初始隐藏 */
+    }
+    .namebox h1 {
+      margin: 0 auto;
     }
     .message {
-      font-size: 1.8em;
+      font-size: 2.2em; /* 增加字体大小 */
       margin-top: 10px;
       text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.5);
       animation: fadeIn 2.5s ease-in-out;
@@ -53,26 +54,30 @@
     .footer {
       position: absolute;
       bottom: 20px;
-      font-size: 1.2em;
+      font-size: 2.5em;
       color: rgba(255, 255, 255, 0.8);
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       animation: fadeIn 3s ease-in-out;
     }
-    .quote {
-      font-size: 1.5em;
-      margin-top: 20px;
-      font-style: italic;
-      color: rgba(255, 255, 255, 0.7);
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* 弹出框样式 */
+    /* iOS 风格的弹出框 */
     .popup {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.6); /* 半透明的黑色背景 */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -89,48 +94,37 @@
     }
 
     .popup .content {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 30px;
+      background-color: #ffffff;
       border-radius: 15px;
+      padding: 25px;
       width: 80%;
-      max-width: 500px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease-in-out;
+      max-width: 400px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      color: #333; /* 深色文本，更符合iOS风格 */
+      font-size: 1.2em;
     }
 
-    .popup input {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: none;
-      font-size: 1.2em;
+    .popup p {
+      margin: 20px 0;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #007aff; /* iOS 系统的蓝色 */
     }
 
     .popup button {
-      padding: 10px 20px;
-      background-color: #ff7e5f;
+      padding: 12px 25px;
+      background-color: #007aff; /* iOS 蓝色 */
       color: white;
       font-size: 1.2em;
       border: none;
-      border-radius: 5px;
+      border-radius: 25px; /* 圆形按钮 */
       cursor: pointer;
       transition: background-color 0.3s;
     }
 
     .popup button:hover {
-      background-color: #feb47b;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      background-color: #0051a8; /* 深色蓝 */
     }
   </style>
 </head>
@@ -144,22 +138,25 @@
   </div>
 
   <!-- 页面内容容器 -->
-  <div class="container" id="container">
+  <div class="namebox" id="namebox">
+    <h1>❤️Love Me Qian❤️</h1>
     <p class="message">
       从 <time datetime="2021-10-24">2021 年 10 月 24 日</time> 起，我们一起走过了 
-      <span class="highlight" id="days">0</span> 天 
-      <span class="highlight" id="hours">0</span> 时 
-      <span class="highlight" id="minutes">0</span> 分 
-      <span class="highlight" id="seconds">0</span> 秒
+      <span class="highlight" id="days">1163</span> 天 
+      <span class="highlight" id="hours">20</span> 时 
+      <span class="highlight" id="minutes">44</span> 分 
+      <span class="highlight" id="seconds">14</span> 秒
     </p>
 
-    <p class="quote">"爱是永恒的，时光不会改变我们的心"</p>
-
-    <p class="footer">❤️ Love Me Qian ❤️</p>
-
-    <!-- 背景音乐 -->
-    <audio id="backgroundMusic" src="your-music-file.mp3" type="audio/mpeg" loop></audio>
+    <p class="footer">
+      <span style="font-family: 'Dancing Script', cursive;">Love Me Qian</span>
+    </p>
   </div>
+
+  <canvas id="pinkboard"></canvas>
+
+  <!-- 背景音乐 -->
+  <audio id="backgroundMusic" src="your-music-file.mp3" type="audio/mpeg" loop></audio>
 
   <script>
     // 设置起始时间
@@ -211,7 +208,7 @@
       // 延时后，隐藏弹出框并显示页面内容
       setTimeout(() => {
         popup.style.display = 'none'; // 隐藏弹出框
-        document.getElementById('container').style.display = 'block'; // 显示页面内容
+        document.getElementById('namebox').style.display = 'block'; // 显示页面内容
       }, 1000); // 渐变消失持续1秒
     }
   </script>
