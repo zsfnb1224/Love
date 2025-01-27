@@ -41,7 +41,7 @@
       margin: 0 auto;
     }
     .message {
-      font-size: 2.2em; /* 增加字体大小 */
+      font-size: 2.2em;
       margin-top: 10px;
       text-shadow: 1px 3px 5px rgba(0, 0, 0, 0.5);
       animation: fadeIn 2.5s ease-in-out;
@@ -72,15 +72,15 @@
 </head>
 <body>
   <p class="message">
-    从 <time datetime="2025-01-26">2025 年 1 月 26 日</time> 起，已经经过了 
-    <span class="highlight" id="days">1163</span> 天 
-    <span class="highlight" id="hours">20</span> 时 
-    <span class="highlight" id="minutes">44</span> 分 
-    <span class="highlight" id="seconds">14</span> 秒
+    从 <time datetime="2025-01-26T15:58:00">2025 年 1 月 26 日 15 时 58 分 00 秒</time> 起，已经经过了 
+    <span class="highlight" id="days">1</span> 天 
+    <span class="highlight" id="hours">0</span> 时 
+    <span class="highlight" id="minutes">0</span> 分 
+    <span class="highlight" id="seconds">0</span> 秒
   </p>
 
   <p class="footer">
-    <span style="font-family: 'Dancing Script', cursive;">By Zsfan To DaiYuXuan</span>
+    <span style="font-family: 'Dancing Script', cursive;">By Zsfan To DaiYunXuan</span>
   </p>
 
   <canvas id="pinkboard"></canvas>
@@ -131,11 +131,11 @@
 
     var settings = {
       particles: {
-        length: 500, // maximum amount of particles
-        duration: 2, // particle duration in sec
-        velocity: 100, // particle velocity in pixels/sec
-        effect: -0.75, // play with this for a nice effect
-        size: 30, // particle size in pixels
+        length: 500,
+        duration: 2,
+        velocity: 100,
+        effect: -0.75,
+        size: 30,
       },
     };
 
