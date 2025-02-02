@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🤪戴云轩❤️</title>
+  <title>爱你的轩❤️</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/mouse_slide.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/clicklove.js"></script>
@@ -49,6 +49,9 @@
     .highlight {
       color: #ffdd94;
       font-weight: bold;
+      display: inline-block;
+      min-width: 1.5em;
+      animation: pulse 2s infinite;
     }
     .footer {
       position: absolute;
@@ -57,6 +60,19 @@
       color: rgba(255, 255, 255, 0.8);
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
       animation: fadeIn 3s ease-in-out;
+    }
+    .footer span {
+      background: linear-gradient(45deg, #ff69b4, #ff8da1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 500;
+      letter-spacing: 1px;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    time {
+      color: #ffdd94;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(255, 221, 148, 0.5);
     }
     @keyframes fadeIn {
       from {
@@ -68,40 +84,67 @@
         transform: translateY(0);
       }
     }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff69b4;
+      }
+      to {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff69b4;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .message {
+        font-size: 1.8em;
+      }
+      .footer {
+        font-size: 2em;
+      }
+    }
   </style>
 </head>
 <body>
   <p class="message">
-    从 <time datetime="2025-01-26T15:58:00">2025 年 1 月 26 日 15 时 58 分</time> 起，已经经过了 
-    <span class="highlight" id="days">1</span> 天 
-    <span class="highlight" id="hours">0</span> 时 
-    <span class="highlight" id="minutes">0</span> 分
+    从 <time datetime="2025-02-01T14:18:00">2025 年 2 月 1 日 14 时 18 分</time> 起，已经相爱了 
+    <span class="highlight" id="days">0</span> 天 
+    <span class="highlight" id="hours">10</span> 时 
+    <span class="highlight" id="minutes">59</span> 分
   </p>
 
   <p class="footer">
-    <span style="font-family: 'Dancing Script', cursive;">By Zsfan To DaiYunXuan</span>
+    <span style="font-family: 'Dancing Script', cursive;">By DaiYunXuan To LiuYanXi</span>
   </p>
 
   <canvas id="pinkboard"></canvas>
 
   <!-- 背景音乐 -->
-  <audio id="backgroundMusic" src="your-music-file.mp3" type="audio/mpeg" loop></audio>
+  <audio id="backgroundMusic" src="your-music-file.mp3" type="audio/mpeg" loop preload="auto"></audio>
 
   <script>
     // 设置起始时间
-    const startDate = new Date('2025-01-26T15:58:00');
+    const startDate = new Date('2025-02-01T14:18:00');
 
     // 更新计时器函数
     function updateTimer() {
       const now = new Date();
       const elapsedTime = now - startDate;
+      
+      // 添加负数时间处理
+      if (elapsedTime < 0) {
+        document.getElementById('days').textContent = '0';
+        document.getElementById('hours').textContent = '0';
+        document.getElementById('minutes').textContent = '0';
+        return;
+      }
 
-      // 计算天、时、分
       const days = Math.floor(elapsedTime / (1000 * 60 * 60 * 24));
       const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
 
-      // 更新页面内容
       document.getElementById('days').textContent = days;
       document.getElementById('hours').textContent = hours;
       document.getElementById('minutes').textContent = minutes;
@@ -111,6 +154,15 @@
 
     // 初始调用计时器
     updateTimer();
+
+    // 标题动态效果
+    const emojis = ["❤️", "💕", "💗", "💖"];
+    let emojiIndex = 0;
+
+    setInterval(() => {
+      document.title = `爱你的轩${emojis[emojiIndex]}`;
+      emojiIndex = (emojiIndex + 1) % emojis.length;
+    }, 1000);
 
     // 播放音乐
     function playMusic() {
@@ -202,11 +254,13 @@
           firstActive = 0,
           firstFree = 0,
           duration = settings.particles.duration;
+      
       function ParticlePool(length) {
         particles = new Array(length);
         for (var i = 0; i < particles.length; i++)
           particles[i] = new Particle();
       }
+      
       ParticlePool.prototype.add = function(x, y, dx, dy) {
         particles[firstFree].initialize(x, y, dx, dy);
         firstFree++;
@@ -214,6 +268,7 @@
         if (firstActive == firstFree ) firstActive++;
         if (firstActive == particles.length) firstActive = 0;
       };
+      
       ParticlePool.prototype.update = function(deltaTime) {
         var i;
         if (firstActive < firstFree) {
@@ -231,6 +286,7 @@
           if (firstActive == particles.length) firstActive = 0;
         }
       };
+      
       ParticlePool.prototype.draw = function(context, image) {
         var i;
         if (firstActive < firstFree) {
@@ -255,8 +311,8 @@
 
       function pointOnHeart(t) {
         return new Point(
-            160 * Math.pow(Math.sin(t), 3),
-            130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+          160 * Math.pow(Math.sin(t), 3),
+          130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
         );
       }
 
